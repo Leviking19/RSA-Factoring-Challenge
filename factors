@@ -1,17 +1,33 @@
-#! /usr/bin/python3
-import sys
+#!/usr/bin/python3
+"""Module that factorize as many numbers as possible
+ into a product of two smaller numbers."""
+from sys import argv
 
-def factors():
-    """traverse through a file and find factors for each number"""
-    try:
-        with open(sys.argv[1]) as f:
-            for line in f:
-                line = int(line)
-                for i in range (2,  line + 1):
-                    if line%i ==0:
-                        q = i
-                        print(f"{line}={line//q}*{q}")
-                        break
-    except(IndexError):
-        print("No argurments passed")
-factors()
+
+def factorize(value):
+    """"print a simple descomposition of an integer > 1"""
+    i = 2
+
+    if value < 2:
+        return
+    print()
+    print(value, "<- value-bef")
+    while value % i:
+        i += 1
+    print("{:.0f}={:.0f}*{:.0f}".format(value, value / i, i))
+    print(value, "<- value-aft")
+    print()
+
+if len(argv) != 2:
+    exit()
+
+try:
+    with open(argv[1]) as file:
+        line = file.readline()
+
+        while line != "":
+            value = int(line.split('\n')[0])
+            factorize(value)
+            line = file.readline()
+except:
+    pass
