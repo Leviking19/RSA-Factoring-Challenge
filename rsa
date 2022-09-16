@@ -1,6 +1,13 @@
 #! /usr/bin/python3
 import sys
 
+def isprime(n):
+    for i in range(2,n//2):
+        if(n%i)==0:
+            return False
+            break
+    return True
+
 def factors():
     """traverse through a file and find factors for each number"""
     try:
@@ -9,9 +16,11 @@ def factors():
                 line = int(line)
                 for i in range (2,  line + 1):
                     if line%i ==0:
-                        q = i
-                        print(f"{line}={line//q}*{q}")
-                        break
+                        if isprime(line//i) and isprime(i):
+                            print(f"{line}={line//i}*{i}")
+                            break
+                        else:
+                            continue
     except(IndexError):
         print("No argurments passed")
 factors()
